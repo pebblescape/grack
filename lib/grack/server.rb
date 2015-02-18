@@ -286,7 +286,7 @@ module Grack
     end
 
     def popen_env
-      {'PATH' => ENV['PATH'], 'GL_ID' => ENV['GL_ID']}
+      {'PATH' => ENV['PATH'], 'REMOTE_USER' => ENV['REMOTE_USER'], 'HOOK_ENV' => ENV['HOOK_ENV']}
     end
 
     # --------------------------------------
