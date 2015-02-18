@@ -79,7 +79,7 @@ module Grack
           pipe.write(input)
           pipe.close_write
           while !pipe.eof?
-            block = pipe.read(8192)           # 8KB at a time
+            block = pipe.gets
             @res.write encode_chunk(block)    # stream it to the client
           end
           @res.write terminating_chunk
@@ -286,7 +286,14 @@ module Grack
     end
 
     def popen_env
-      {'PATH' => ENV['PATH'], 'REMOTE_USER' => ENV['REMOTE_USER'], 'HOOK_ENV' => ENV['HOOK_ENV']}
+      {
+        'PATH' => ENV['PATH'],
+        'REMOTE_USER' => ENV['REMOTE_USER'],
+        'HOOK_ENV' => ENV['HOOK_ENV'],
+        'DOCKER_HOST' => ENV['DOCKER_HOST'],
+        'DOCKER_CERT_PATH' => ENV['DOCKER_CERT_PATH'],
+        'DOCKER_TLS_VERIFY' => ENV['DOCKER_TLS_VERIFY']
+      }
     end
 
     # --------------------------------------
