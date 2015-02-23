@@ -79,7 +79,7 @@ module Grack
           pipe.write(input)
           pipe.close_write
           while !pipe.eof?
-            block = pipe.gets
+            block = pipe.read(16)
             @res.write encode_chunk(block)    # stream it to the client
           end
           @res.write terminating_chunk
